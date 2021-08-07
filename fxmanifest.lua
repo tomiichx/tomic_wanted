@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 games { 'gta5' }
 
-author "tomiichx, rad0je"
+author "tomiichx, rad0je, Basty"
 description "Wanted Level Sistem. In-Development!"
 
 client_scripts { 
