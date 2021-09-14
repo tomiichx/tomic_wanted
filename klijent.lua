@@ -35,8 +35,8 @@ AddEventHandler(
         wanted = false
         ESX.TriggerServerCallback(
             "horizon_wanted:getajWantedLevel",
-            function(trazen)
-                if trazen then
+            function(wanted)
+                if wanted then
                     while not PlayerLoaded do
                         Citizen.Wait(1000)
                     end
