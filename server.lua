@@ -30,8 +30,7 @@ ESX.RegisterServerCallback(
 RegisterServerEvent("horizon_wanted:postaviWantedLevel")
 AddEventHandler(
     "horizon_wanted:postaviWantedLevel",
-    function(wanted)
-        local identifier = GetPlayerIdentifiers(source)[1]
+    function(iden, wanted)
 
         if type(wanted) ~= "boolean" then
             return
@@ -40,7 +39,7 @@ AddEventHandler(
         MySQL.Sync.execute(
             "UPDATE users SET wanted = @wanted WHERE identifier = @identifier",
             {
-                ["@identifier"] = identifier,
+                ["@identifier"] = iden,
                 ["@wanted"] = wanted
             }
         )
@@ -126,6 +125,7 @@ RegisterCommand(
     "dajwanted",
     function(source, args, user)
         local xPlayer = ESX.GetPlayerFromId(source)
+        local tPlayer = ESX.GetPlayerFromId(tonumber(args[1]))
         if xPlayer.job.name == "police" then
             if args[1] ~= nil then
                 if GetPlayerName(tonumber(args[1])) ~= nil then
@@ -134,10 +134,10 @@ RegisterCommand(
                         args[1],
                         {args = {"^0^*[^4^_DRŽAVA^r^0^*]^0 Traženi ste od strane državnih organizacija."}}
                     )
-                    TriggerClientEvent("horizon_wanted:postaviWantedLevelClient", tonumber(args[1]))
+                    TriggerEvent("horizon_wanted:postaviWantedLevel", tPlayer.identifier, true)
                 end
             else
-                TriggerClientEvent("horizon_wanted:postaviWantedLevelClient", source)
+                TriggerEvent("horizon_wanted:postaviWantedLevel", xPlayer.identifier, true)
             end
         else
             TriggerClientEvent(
@@ -153,10 +153,11 @@ RegisterCommand(
     "skiniwanted",
     function(source, args, user)
         local xPlayer = ESX.GetPlayerFromId(source)
+        local tPlayer = ESX.GetPlayerFromId(tonumber(args[1]))
         if xPlayer.job.name == "police" then
             if args[1] ~= nil then
                 if GetPlayerName(tonumber(args[1])) ~= nil then
-                    TriggerClientEvent("horizon_wanted:skiniWantedLevel", tonumber(args[1]))
+                    TriggerEvent("horizon_wanted:postaviWantedLevel", tPlayer.identifier, true)
                     TriggerClientEvent(
                         "chat:addMessage",
                         args[1],
@@ -164,7 +165,7 @@ RegisterCommand(
                     )
                 end
             else
-                TriggerClientEvent("horizon_wanted:skiniWantedLevel", source)
+                TriggerEvent("horizon_wanted:postaviWantedLevel", xPlayer.identifier, true)
             end
         else
             TriggerClientEvent(
