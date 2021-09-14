@@ -157,7 +157,7 @@ RegisterCommand(
         if xPlayer.job.name == "police" then
             if args[1] ~= nil then
                 if GetPlayerName(tonumber(args[1])) ~= nil then
-                    TriggerEvent("horizon_wanted:postaviWantedLevel", tPlayer.identifier, true)
+                    TriggerEvent("horizon_wanted:postaviWantedLevel", tPlayer.identifier, false)
                     TriggerClientEvent(
                         "chat:addMessage",
                         args[1],
@@ -165,7 +165,7 @@ RegisterCommand(
                     )
                 end
             else
-                TriggerEvent("horizon_wanted:postaviWantedLevel", xPlayer.identifier, true)
+                TriggerEvent("horizon_wanted:postaviWantedLevel", xPlayer.identifier, false)
             end
         else
             TriggerClientEvent(
