@@ -1,3 +1,4 @@
+-- ty Stane <3 github.com/Stane034
 ESX = nil
 local PlayerLoaded = false
 wanted = false
@@ -34,40 +35,15 @@ AddEventHandler(
         wanted = false
         ESX.TriggerServerCallback(
             "horizon_wanted:getajWantedLevel",
-            function(wanted)
-                if wanted then
+            function(trazen)
+                if trazen then
                     while not PlayerLoaded do
                         Citizen.Wait(1000)
                     end
+                    wanted = true
                     ESX.ShowNotification("Još uvijek ste na listi traženih, pazite se!")
                 end
             end
         )
-    end
-)
-
-function postaviWantedLevelClient()
-    TriggerServerEvent("horizon_wanted:postaviWantedLevel", true)
-    wanted = true
-end
-
-function skiniWantedLevel()
-    TriggerServerEvent("horizon_wanted:postaviWantedLevel", false)
-    wanted = false
-end
-
-RegisterNetEvent("horizon_wanted:postaviWantedLevelClient")
-AddEventHandler(
-    "horizon_wanted:postaviWantedLevelClient",
-    function()
-        postaviWantedLevelClient()
-    end
-)
-
-RegisterNetEvent("horizon_wanted:skiniWantedLevel")
-AddEventHandler(
-    "horizon_wanted:skiniWantedLevel",
-    function()
-        skiniWantedLevel()
     end
 )
